@@ -1,23 +1,110 @@
 aid: billgo
 name: BillGO
-description: 'BillGO is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'BillGO is a Fort Collins, Colorado bill-payment technology company founded
+  in 2015 that operates a real-time payments network connecting financial institutions,
+  fintechs and billers. Its BillGO Exchange platform lets billers of any size receive
+  electronic payments over ACH and one-time-use virtual cards instead of paper checks,
+  and lets banks and credit unions embed real-time bill pay into their own applications.
+  The Exchange web application at exchange.billgo.com is driven by a live GraphQL API
+  with Okta-hosted OpenID Connect sign-in; the developer reference at docs.billgo.com
+  is a private ReadMe project that redirects anonymous visitors to a login.'
+image: https://billgo.com/hubfs/raw_assets/public/Billgo_January2023/images/Logo_Deep_Full.svg
 url: https://raw.githubusercontent.com/api-evangelist/billgo/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-07'
 modified: '2026-08-07'
 tags:
-- Company
-apis: []
+- Payments
+- Bill Pay
+- Financial Services
+- Banking
+- ACH
+- Virtual Cards
+- Fintech
+- GraphQL
+apis:
+- name: BillGO Exchange GraphQL API
+  description: 'The GraphQL API behind the BillGO Exchange biller portal. A live graphql-java
+    server answers POST requests at https://exchange.billgo.com/graphql; schema introspection
+    is disabled by the server, so no SDL could be captured. Authentication is Okta-hosted
+    OpenID Connect via https://exchange-login.billgo.com/oauth2/default.'
+  humanURL: https://docs.billgo.com/
+  baseURL: https://exchange.billgo.com/graphql
+  tags:
+  - GraphQL
+  - Payments
+  - Bill Pay
+  properties:
+  - type: Login
+    url: https://exchange.billgo.com/login
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: TrustCenter
+  url: security/billgo-trust-center.yml
+- type: DomainSecurity
+  url: security/billgo-domain-security.yml
 - type: Website
-  url: https://forgeglobal.com/billgo_stock/
+  url: https://billgo.com/
+- type: Blog
+  url: https://billgo.com/blog
+- type: Support
+  url: https://billgo.com/contact
+- type: SignUp
+  url: https://start.billgo.com/
+- type: Login
+  url: https://exchange.billgo.com/login
+- type: TermsOfService
+  url: https://billgo.com/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://billgo.com/privacy-policy
+- type: Security
+  url: https://billgo.com/security
+- type: Compliance
+  url: https://billgo.com/security
+- type: StatusPage
+  url: https://billgo.statuspage.io/
+- type: WellKnown
+  url: well-known/billgo-well-known.yml
+- type: Authentication
+  url: authentication/billgo-authentication.yml
+- type: OAuthScopes
+  url: scopes/billgo-scopes.yml
+- type: Conformance
+  url: conformance/billgo-conformance.yml
+- type: Conventions
+  url: conventions/billgo-conventions.yml
+- type: Lifecycle
+  url: lifecycle/billgo-lifecycle.yml
+- type: LLMsTxt
+  url: llms/billgo-llms.txt
+x-enrichment:
+  date: '2026-08-07'
+  status: minimal
+  artifacts_added: 10
+  pass: local-v1
+x-coverage:
+  state: gated
+  reason: partner-login
+  detail: >-
+    docs.billgo.com — the only BillGO developer reference — is a private ReadMe project
+    that answers every path, including /reference and /openapi.json, with an HTTP 302 to
+    https://dash.readme.com/to/billgo-group, so no contract, endpoint list or auth guide
+    is readable without a BillGO account; the live GraphQL endpoint at
+    exchange.billgo.com/graphql confirms the API exists but returns
+    "Introspection has been disabled for this request".
+  evidence:
+  - url: https://docs.billgo.com/reference
+    status: 302
+  - url: https://docs.billgo.com/openapi.json
+    status: 302
+  - url: https://exchange.billgo.com/graphql
+    status: 200
+  - url: https://billgo.com/developers
+    status: 404
+  checked: '2026-08-07'
