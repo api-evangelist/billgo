@@ -42,5 +42,17 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-BillGO is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/billgo_stock/
+BillGO is a Fort Collins, Colorado bill-payment technology company founded in 2015 that operates a
+real-time payments network connecting financial institutions, fintechs and billers. Its BillGO
+Exchange platform lets billers of any size receive electronic payments over ACH and one-time-use
+virtual cards instead of paper checks, and lets banks and credit unions embed real-time bill pay
+into their own applications.
+
+BillGO runs a live GraphQL API at `https://exchange.billgo.com/graphql` with Okta-hosted OpenID
+Connect sign-in, but publishes no machine-readable contract: schema introspection is disabled, and
+the developer reference at `https://docs.billgo.com/` is a private ReadMe project that returns
+HTTP 302 to a login for anonymous visitors. See `x-coverage` in `apis.yml`.
+
+- https://billgo.com/
+- https://docs.billgo.com/ (login required)
+- https://billgo.statuspage.io/

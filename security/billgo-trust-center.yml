@@ -1,0 +1,63 @@
+generated: '2026-08-07'
+method: searched
+probe: true
+source: https://billgo.com/security
+url: https://billgo.com/security
+trust_center_hosted: false
+trust_center_note: >-
+  BillGO has no dedicated trust centre — trust.billgo.com and security.billgo.com do not
+  resolve. The compliance posture is prose on a marketing page at billgo.com/security;
+  no attestation report, SOC package request flow, or third-party verification portal
+  is offered.
+certifications:
+- SOC 2 Type II
+- SOC 1 Type I
+- PCI DSS Level 1 (via service providers)
+claims:
+- name: SOC 2 Type II
+  statement: BillGO undergoes annual SOC 1 Type I and SOC 2 Type II audits to ensure its
+    security controls meet industry standards.
+- name: SOC 1 Type I
+  statement: BillGO undergoes annual SOC 1 Type I and SOC 2 Type II audits to ensure its
+    security controls meet industry standards.
+- name: PCI DSS Level 1
+  statement: BillGO Exchange partners with PCI-compliant Level 1 Service providers — the
+    highest standard.
+  scope_note: The stated Level 1 compliance belongs to BillGO's service providers; the page
+    does not claim a BillGO Level 1 attestation.
+- name: TLS 1.2+
+  statement: Transport Layer Security (TLS 1.2+) to protect data in transit.
+security_program:
+  mfa: Multi-factor authentication enabled for all accounts.
+  ddos: Advanced anti-bot services protect our servers.
+  monitoring: Round-the-clock monitoring for suspicious activity.
+  sdlc: Development team adheres to a rigorous SDLC process.
+vulnerability_disclosure:
+  public_program: false
+  bug_bounty: private
+  statement: '...supported by a private bug bounty program.'
+  policy_url: null
+  security_contact: null
+  security_txt: false
+  note: >-
+    A private bug bounty is stated but there is no public disclosure policy, no
+    security@ contact, and no /.well-known/security.txt on any BillGO host, so an
+    outside researcher has no published route to report a finding. Recorded here rather
+    than as a VulnerabilityDisclosure artifact, because there is no reachable channel to
+    record.
+evidence:
+- source: https://billgo.com/security
+  status: 200
+  keywords:
+  - soc 2 type ii
+  - soc 1 type i
+  - pci
+  - bug bounty
+  - tls 1.2
+- source: https://trust.billgo.com/
+  status: 0
+  note: DNS does not resolve
+- source: https://billgo.com/.well-known/security.txt
+  status: 404
+x-evidence:
+  fetched: '2026-08-07'

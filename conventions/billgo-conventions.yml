@@ -1,0 +1,86 @@
+generated: '2026-08-07'
+method: probed
+source: https://exchange.billgo.com/graphql
+scope_note: >-
+  BillGO publishes no public API reference, so the cross-cutting semantics below are
+  what could be observed directly against the live surface plus what the anonymously
+  readable identity discovery documents state. Everything unobservable is recorded as
+  `unknown` rather than guessed — none of these fields is inferred from a similar API.
+authentication:
+  style: OpenID Connect / OAuth 2.0 bearer token
+  issuer: https://exchange-login.billgo.com/oauth2/default
+  pkce: S256
+  artifact: authentication/billgo-authentication.yml
+  scopes_artifact: scopes/billgo-scopes.yml
+transport:
+  primary: GraphQL over HTTPS
+  endpoint: https://exchange.billgo.com/graphql
+  http_methods:
+    POST: 200
+    GET: 405
+  content_type: application/json
+  server_family: graphql-java
+    (errors carry an `extensions.classification` field, e.g. ValidationError,
+    IntrospectionDisabled)
+  introspection: disabled
+  client: >-
+    The Exchange front end is an Apollo Client SPA (an apollo chunk is preloaded by
+    https://exchange.billgo.com/assets/index-lnPJCgGi.js).
+idempotency:
+  supported: unknown
+  header: null
+  note: >-
+    No idempotency key header, parameter or documented retry contract is observable.
+    GraphQL mutations on this endpoint require authentication, and the reference that
+    would state a retry/idempotency policy is behind a ReadMe login. No `Idempotency`
+    pointer is emitted, because emitting one would assert a contract BillGO has not
+    published.
+pagination:
+  style: unknown
+  note: Cannot be determined without the schema; introspection is disabled.
+error_envelope:
+  style: GraphQL errors[]
+  fields:
+  - message
+  - locations
+  - extensions.classification
+  observed_classifications:
+  - ValidationError
+  - IntrospectionDisabled
+  problem_json: false
+  artifact: null
+versioning:
+  style: unversioned path
+  note: The endpoint carries no version segment. See lifecycle/billgo-lifecycle.yml.
+rate_limiting:
+  signalled: false
+  headers_observed: []
+  note: No RateLimit-* or X-RateLimit-* headers were returned on anonymous POSTs.
+request_tracing:
+  header: null
+  note: No request-id / correlation-id header was returned on anonymous responses.
+security_headers_observed:
+  strict-transport-security: max-age=15552000; includeSubDomains; preload
+  x-content-type-options: nosniff
+  x-frame-options: DENY
+  x-xss-protection: '0'
+  cache-control: no-cache, no-store, max-age=0, must-revalidate
+  edge: cloudflare
+cross_links:
+  authentication: authentication/billgo-authentication.yml
+  scopes: scopes/billgo-scopes.yml
+  conformance: conformance/billgo-conformance.yml
+  lifecycle: lifecycle/billgo-lifecycle.yml
+  well_known: well-known/billgo-well-known.yml
+x-evidence:
+  fetched: '2026-08-07'
+  probes:
+  - url: https://exchange.billgo.com/graphql
+    status: 200
+    method: POST
+    note: '{ __typename } resolved to "Query"'
+  - url: https://exchange.billgo.com/graphql
+    status: 405
+    method: GET
+  - url: https://exchange.billgo.com/assets/index-lnPJCgGi.js
+    status: 200

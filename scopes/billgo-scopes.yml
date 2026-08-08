@@ -1,0 +1,80 @@
+generated: '2026-08-07'
+method: probed
+source: https://exchange-login.billgo.com/oauth2/default/.well-known/openid-configuration
+docs: null
+docs_note: >-
+  BillGO publishes no scopes / permissions reference page. docs.billgo.com 302s to a
+  ReadMe login. Every scope below was read out of the provider's own anonymously
+  readable OIDC discovery document — nothing here is inferred or authored.
+caveat: >-
+  These are the scopes advertised by the Okta "default" custom authorization server
+  that fronts BillGO Exchange sign-in, NOT a published BillGO product scope catalogue.
+  All but one are stock OIDC or stock Okta MyAccount scopes that ship with any Okta
+  tenant. `interclient_access` is the only non-stock scope BillGO has configured and
+  exposed on this authorization server; its meaning is not documented publicly.
+schemes:
+- name: BillGO Exchange (Okta default authorization server)
+  source: well-known/billgo-openid-configuration.json
+  issuer: https://exchange-login.billgo.com/oauth2/default
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://exchange-login.billgo.com/oauth2/default/v1/authorize
+    tokenUrl: https://exchange-login.billgo.com/oauth2/default/v1/token
+scopes:
+- scope: interclient_access
+  description: BillGO-configured scope on the Exchange authorization server; meaning not
+    publicly documented.
+  origin: provider-configured
+  flows:
+  - authorizationCode
+  sources:
+  - well-known/billgo-openid-configuration.json
+- scope: openid
+  description: Standard OpenID Connect scope requesting an ID token.
+  origin: standard-oidc
+- scope: profile
+  description: Standard OpenID Connect scope for basic profile claims.
+  origin: standard-oidc
+- scope: email
+  description: Standard OpenID Connect scope for the email claim.
+  origin: standard-oidc
+- scope: address
+  description: Standard OpenID Connect scope for the address claim.
+  origin: standard-oidc
+- scope: phone
+  description: Standard OpenID Connect scope for the phone_number claim.
+  origin: standard-oidc
+- scope: offline_access
+  description: Standard OAuth 2.0 scope requesting a refresh token.
+  origin: standard-oauth2
+- scope: device_sso
+  description: Okta device single-sign-on scope.
+  origin: stock-okta
+stock_okta_myaccount_scopes:
+  note: >-
+    Advertised by the same authorization server but supplied by Okta, not BillGO.
+    Listed by name only so the artifact is complete without implying BillGO authored them.
+  scopes:
+  - okta.myAccount.read
+  - okta.myAccount.manage
+  - okta.myAccount.profile.read
+  - okta.myAccount.profile.manage
+  - okta.myAccount.email.read
+  - okta.myAccount.email.manage
+  - okta.myAccount.phone.read
+  - okta.myAccount.phone.manage
+  - okta.myAccount.authenticators.read
+  - okta.myAccount.authenticators.manage
+  - okta.myAccount.appAuthenticator.read
+  - okta.myAccount.appAuthenticator.manage
+  - okta.myAccount.appAuthenticator.maintenance.read
+  - okta.myAccount.appAuthenticator.maintenance.manage
+  - okta.myAccount.oktaApplications.read
+  - okta.myAccount.organization.read
+x-evidence:
+  fetched: '2026-08-07'
+  probes:
+  - url: https://exchange-login.billgo.com/oauth2/default/.well-known/openid-configuration
+    status: 200
+  - url: https://docs.billgo.com/reference
+    status: 302

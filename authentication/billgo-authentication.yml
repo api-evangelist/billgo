@@ -1,0 +1,102 @@
+generated: '2026-08-07'
+method: probed
+source: https://exchange-login.billgo.com/oauth2/default/.well-known/openid-configuration
+docs: https://docs.billgo.com/
+docs_note: >-
+  The BillGO developer reference is a private ReadMe project — https://docs.billgo.com/
+  returns HTTP 302 to https://dash.readme.com/to/billgo-group for anonymous visitors —
+  so no documented auth page could be read. Everything below is taken from the
+  provider's own anonymously-readable OpenID Connect / OAuth 2.0 discovery documents,
+  not from documentation.
+summary:
+  types:
+  - openIdConnect
+  - oauth2
+  api_key_in: []
+  oauth2_flows:
+  - authorization_code
+  - implicit
+  - refresh_token
+  - password
+  - device_code
+  - ciba
+  pkce: true
+  pkce_methods:
+  - S256
+  identity_provider: Okta
+schemes:
+- name: BillGO Exchange OpenID Connect
+  type: openIdConnect
+  openIdConnectUrl: https://exchange-login.billgo.com/oauth2/default/.well-known/openid-configuration
+  issuer: https://exchange-login.billgo.com/oauth2/default
+  authorization_endpoint: https://exchange-login.billgo.com/oauth2/default/v1/authorize
+  token_endpoint: https://exchange-login.billgo.com/oauth2/default/v1/token
+  userinfo_endpoint: https://exchange-login.billgo.com/oauth2/default/v1/userinfo
+  jwks_uri: https://exchange-login.billgo.com/oauth2/default/v1/keys
+  registration_endpoint: https://exchange-login.billgo.com/oauth2/v1/clients
+  introspection_endpoint: https://exchange-login.billgo.com/oauth2/default/v1/introspect
+  revocation_endpoint: https://exchange-login.billgo.com/oauth2/default/v1/revoke
+  id_token_signing_alg_values_supported:
+  - RS256
+  token_endpoint_auth_methods_supported:
+  - client_secret_basic
+  - client_secret_post
+  - client_secret_jwt
+  - private_key_jwt
+  - none
+  code_challenge_methods_supported:
+  - S256
+  response_types_supported:
+  - code
+  - id_token
+  - code id_token
+  - code token
+  - id_token token
+  - code id_token token
+  sources:
+  - well-known/billgo-openid-configuration.json
+- name: Okta org authorization server
+  type: oauth2
+  issuer: https://exchange-login.billgo.com
+  metadata: https://exchange-login.billgo.com/.well-known/oauth-authorization-server
+  grant_types_supported:
+  - authorization_code
+  - implicit
+  - refresh_token
+  - password
+  - client_credentials
+  - urn:ietf:params:oauth:grant-type:device_code
+  note: >-
+    This is the stock Okta org authorization server that ships with every Okta tenant.
+    Its scopes are Okta administrative scopes (okta.users.read, okta.apps.manage, ...),
+    not BillGO product scopes. Recorded for completeness; it is not the API's
+    authorization surface.
+  sources:
+  - well-known/billgo-oauth-authorization-server.json
+api_surface:
+  endpoint: https://exchange.billgo.com/graphql
+  transport: GraphQL over HTTPS POST
+  observed:
+    get_method: 405
+    anonymous_typename_query: 200
+    introspection: disabled by the server (IntrospectionDisabled)
+  bearer_token: >-
+    Not directly observable without credentials. The Exchange SPA is an Apollo client
+    against this endpoint and authenticates through the Okta issuer above, so tokens
+    are OIDC access tokens; the exact header name is not published.
+gaps:
+- No OpenAPI or GraphQL SDL is published, so security schemes cannot be derived from a spec.
+- No public authentication guide; the reference is behind a ReadMe login.
+- No API-key mechanism is documented or observable on any public surface.
+x-evidence:
+  fetched: '2026-08-07'
+  probes:
+  - url: https://exchange-login.billgo.com/oauth2/default/.well-known/openid-configuration
+    status: 200
+  - url: https://exchange-login.billgo.com/.well-known/oauth-authorization-server
+    status: 200
+  - url: https://exchange.billgo.com/graphql
+    status: 200
+    method: POST
+  - url: https://docs.billgo.com/
+    status: 302

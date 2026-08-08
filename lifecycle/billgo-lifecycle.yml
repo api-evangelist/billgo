@@ -1,0 +1,57 @@
+generated: '2026-08-07'
+method: probed
+source: https://billgo.statuspage.io/api/v2/summary.json
+versioning:
+  scheme: unknown
+  current: null
+  docs: null
+  note: >-
+    No versioning policy is publicly documented. The GraphQL endpoint carries no version
+    in its path (https://exchange.billgo.com/graphql) and the reference that would state
+    a policy is behind a ReadMe login.
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  note: No deprecation or Sunset/Deprecation-header (RFC 8594) policy was found on any
+    public BillGO surface.
+sla:
+  url: null
+  uptime_target: null
+  note: No published SLA or uptime target found.
+status_page: https://billgo.statuspage.io/
+status_page_detail:
+  provider: Atlassian Statuspage
+  page_id: ds80j2s9nzzv
+  page_name: BillGO Status
+  time_zone: America/Denver
+  api: https://billgo.statuspage.io/api/v2/summary.json
+  machine_readable: true
+  observed_at: '2026-08-07'
+  observed_indicator: major
+  observed_description: Partial System Outage
+  components_observed:
+  - Global
+  - ACH
+  - VC
+  environments_exposed:
+  - Gold (PROD)
+  - Silver (DEV)
+  note: >-
+    Components map to the payment rails BillGO Exchange runs on — ACH and VC (virtual
+    card) — split across a Gold production and a Silver development environment. The
+    page also republishes JFrog Cloud vendor components.
+changelog: null
+changelog_note: No dated public changelog or release-notes page was found.
+deprecated_operations: []
+deprecated_operations_note: No OpenAPI is published and GraphQL introspection is disabled,
+  so per-operation deprecation cannot be derived.
+x-evidence:
+  fetched: '2026-08-07'
+  probes:
+  - url: https://billgo.statuspage.io/
+    status: 200
+  - url: https://billgo.statuspage.io/api/v2/summary.json
+    status: 200
+  - url: https://status.billgo.com/
+    status: 0
+    note: DNS does not resolve

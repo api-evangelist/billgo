@@ -1,0 +1,85 @@
+generated: '2026-08-07'
+method: probed
+source: >-
+  https://exchange-login.billgo.com/oauth2/default/.well-known/openid-configuration,
+  https://exchange.billgo.com/graphql, https://billgo.com/security
+standards:
+- id: openid-connect-discovery
+  conforms: true
+  evidence: >-
+    https://exchange-login.billgo.com/oauth2/default/.well-known/openid-configuration
+    returns 200 application/json with issuer, authorization_endpoint, token_endpoint,
+    userinfo_endpoint and jwks_uri.
+- id: oauth2
+  conforms: true
+  evidence: Authorization Code, Implicit, Refresh Token, Password, Device Code and CIBA
+    grants advertised on the Okta authorization server backing BillGO Exchange.
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  evidence: https://exchange-login.billgo.com/.well-known/oauth-authorization-server returns
+    200 application/json.
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported = ["S256"].
+- id: graphql
+  conforms: true
+  evidence: >-
+    POST https://exchange.billgo.com/graphql returns a spec-shaped GraphQL response;
+    `{ __typename }` resolves to "Query" and an undefined field returns a
+    ValidationError with classification, indicating a graphql-java server.
+  caveat: Schema introspection is disabled, so conformance to a published schema cannot
+    be verified.
+- id: openapi
+  conforms: false
+  evidence: No OpenAPI or Swagger document found on billgo.com, exchange.billgo.com,
+    docs.billgo.com, portal.ms.billgo.com or start.billgo.com; the docs host 302s to a
+    ReadMe login and the SPA hosts answer every path with a soft-404 HTML shell.
+- id: asyncapi
+  conforms: false
+  evidence: No AsyncAPI document and no public webhook/event catalogue found.
+- id: rfc9457-problem-details
+  conforms: unknown
+  evidence: Error shape cannot be observed without an authenticated session; the GraphQL
+    endpoint returns GraphQL-spec `errors[]`, not problem+json.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on billgo.com and 405 on
+    exchange-login.billgo.com; the 200s on the SPA hosts are soft-404 HTML.
+- id: rfc8615-well-known-agent-card
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json miss on every
+    BillGO host (404, or a soft-404 HTML shell byte-identical to a control path).
+compliance_program:
+  published: true
+  url: https://billgo.com/security
+  claims:
+  - name: SOC 2 Type II
+    statement: BillGO undergoes annual SOC 1 Type I and SOC 2 Type II audits to ensure its
+      security controls meet industry standards.
+    verified_by: provider statement on https://billgo.com/security
+  - name: SOC 1 Type I
+    statement: Annual SOC 1 Type I audit.
+    verified_by: provider statement on https://billgo.com/security
+  - name: PCI DSS Level 1 (service providers)
+    statement: BillGO Exchange partners with PCI-compliant Level 1 Service providers.
+    verified_by: provider statement on https://billgo.com/security
+    note: The claim is about BillGO's service providers, not a BillGO Level 1 attestation.
+  - name: TLS 1.2+
+    statement: Transport Layer Security (TLS 1.2+) to protect data in transit.
+    verified_by: provider statement on https://billgo.com/security
+  attestation_reports_public: false
+  note: No trust centre, no downloadable attestation, and no third-party verification
+    portal was found; the certifications are prose claims on a marketing page.
+x-evidence:
+  fetched: '2026-08-07'
+  probes:
+  - url: https://exchange-login.billgo.com/oauth2/default/.well-known/openid-configuration
+    status: 200
+  - url: https://exchange-login.billgo.com/.well-known/oauth-authorization-server
+    status: 200
+  - url: https://exchange.billgo.com/graphql
+    status: 200
+  - url: https://billgo.com/security
+    status: 200
+  - url: https://billgo.com/.well-known/security.txt
+    status: 404

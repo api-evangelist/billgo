@@ -1,0 +1,137 @@
+generated: '2026-08-07'
+method: probed
+source: https://exchange-login.billgo.com/oauth2/default/.well-known/openid-configuration
+summary: >-
+  Only one BillGO host serves real /.well-known/ documents: the Okta-hosted identity
+  host exchange-login.billgo.com, which backs sign-in for the BillGO Exchange portal.
+  Both the org authorization server (RFC 8414) and the "default" custom authorization
+  server (OIDC discovery) return 200 anonymously. No BillGO host publishes
+  security.txt, api-catalog, ai-plugin.json, an agent card, or llms.txt.
+soft_404_warning: >-
+  exchange.billgo.com, start.billgo.com and portal.ms.billgo.com are single-page
+  applications whose catch-all route answers HTTP 200 with the same HTML shell for
+  EVERY path, including every /.well-known/* path. A control path
+  (/zzz-control-9871) returned a byte-identical body, so none of those 200s is a
+  document. They are recorded below as soft-404, not as hits.
+hosts:
+- host: exchange-login.billgo.com
+  role: identity provider (Okta)
+  documents:
+  - path: /oauth2/default/.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: billgo-openid-configuration.json
+    note: OIDC discovery for the "default" custom authorization server used by BillGO Exchange
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: billgo-oauth-authorization-server.json
+    note: RFC 8414 metadata for the Okta org authorization server
+  - path: /.well-known/oauth-protected-resource
+    status: 405
+  - path: /.well-known/security.txt
+    status: 405
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: billgo.com
+  role: marketing website (HubSpot)
+  control_path: /zzz-control-9871
+  control_status: 404
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /openapi.json
+    status: 404
+- host: exchange.billgo.com
+  role: BillGO Exchange SPA + GraphQL API
+  control_path: /zzz-control-9871
+  control_status: 200
+  control_bytes: 2516
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    soft_404: true
+    bytes: 2516
+  - path: /.well-known/agent-card.json
+    status: 200
+    soft_404: true
+    bytes: 2516
+  - path: /.well-known/agent.json
+    status: 200
+    soft_404: true
+    bytes: 2516
+  - path: /llms.txt
+    status: 200
+    soft_404: true
+    bytes: 2516
+  - path: /openapi.json
+    status: 200
+    soft_404: true
+    bytes: 2516
+- host: docs.billgo.com
+  role: ReadMe developer documentation (private project billgo-group)
+  note: every path 302s to https://dash.readme.com/to/billgo-group; the 200s below are
+    the ReadMe login page, not documents
+  documents:
+  - path: /
+    status: 302
+  - path: /reference
+    status: 302
+  - path: /openapi.json
+    status: 302
+  - path: /.well-known/openid-configuration
+    status: 404
+- host: start.billgo.com
+  role: sign-up landing page
+  control_status: 200
+  control_bytes: 1223
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    soft_404: true
+    bytes: 1223
+  - path: /llms.txt
+    status: 200
+    soft_404: true
+    bytes: 1223
+- host: portal.ms.billgo.com
+  role: referenced by the Exchange SPA bundle
+  control_status: 200
+  control_bytes: 65390
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 200
+    soft_404: true
+    bytes: 65390
+  - path: /llms.txt
+    status: 404
+x-evidence:
+  fetched: '2026-08-07'
+  probes:
+  - url: https://exchange-login.billgo.com/oauth2/default/.well-known/openid-configuration
+    status: 200
+  - url: https://exchange-login.billgo.com/.well-known/oauth-authorization-server
+    status: 200
+  - url: https://exchange.billgo.com/zzz-control-9871
+    status: 200
+    note: control path proving the SPA catch-all
+  - url: https://docs.billgo.com/
+    status: 302
