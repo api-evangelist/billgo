@@ -8,6 +8,17 @@ description: 'BillGO is a Fort Collins, Colorado bill-payment technology company
   The Exchange web application at exchange.billgo.com is driven by a live GraphQL API
   with Okta-hosted OpenID Connect sign-in; the developer reference at docs.billgo.com
   is a private ReadMe project that redirects anonymous visitors to a login.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://billgo.com/hubfs/raw_assets/public/Billgo_January2023/images/Logo_Deep_Full.svg
 url: https://raw.githubusercontent.com/api-evangelist/billgo/refs/heads/main/apis.yml
 x-type: company
