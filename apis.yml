@@ -43,7 +43,7 @@ modified: '2026-08-07'
 tags:
 - Payments
 - Bill Pay
-- Financial-Services
+- Financial Services
 - Banking
 - ACH
 - Virtual Cards
@@ -58,6 +58,7 @@ tags_raw:
 - Virtual Cards
 - Fintech
 - GraphQL
+- Financial-Services
 apis:
 - name: BillGO Exchange GraphQL API
   description: 'The GraphQL API behind the BillGO Exchange biller portal. A live graphql-java
