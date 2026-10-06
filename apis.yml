@@ -39,7 +39,7 @@ x-type: company
 x-source: harvest:secondary-market
 specificationVersion: '0.23'
 created: '2026-08-07'
-modified: '2026-08-07'
+modified: '2026-10-06'
 tags:
 - Payments
 - Bill Pay
@@ -80,6 +80,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- url: https://billgo.com/blog/rss.xml
+  type: BlogRSS
 - type: TrustCenter
   url: security/billgo-trust-center.yml
 - type: DomainSecurity
