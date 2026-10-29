@@ -64,17 +64,107 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-BillGO is a Fort Collins, Colorado bill-payment technology company founded in 2015 that operates a
-real-time payments network connecting financial institutions, fintechs and billers. Its BillGO
-Exchange platform lets billers of any size receive electronic payments over ACH and one-time-use
-virtual cards instead of paper checks, and lets banks and credit unions embed real-time bill pay
-into their own applications.
+BillGO is a Fort Collins, Colorado bill-payment technology company founded in 2015 that operates a real-time payments network connecting financial institutions, fintechs and billers. Its BillGO Exchange platform lets billers of any size receive electronic payments over ACH and one-time-use virtual cards instead of paper checks, and lets banks and credit unions embed real-time bill pay into their own applications. The Exchange web application at exchange.billgo.com is driven by a live GraphQL API with Okta-hosted OpenID Connect sign-in; the developer reference at docs.billgo.com is a private ReadMe project that redirects anonymous visitors to a login.
 
-BillGO runs a live GraphQL API at `https://exchange.billgo.com/graphql` with Okta-hosted OpenID
-Connect sign-in, but publishes no machine-readable contract: schema introspection is disabled, and
-the developer reference at `https://docs.billgo.com/` is a private ReadMe project that returns
-HTTP 302 to a login for anonymous visitors. See `x-coverage` in `apis.yml`.
+**Areas:** Payments · Bill Pay · Financial Services · Banking · ACH · Virtual Cards · Fintech · GraphQL
 
-- https://billgo.com/
-- https://docs.billgo.com/ (login required)
-- https://billgo.statuspage.io/
+## BillGO on APIs.io
+
+Everything profiled for BillGO is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/billgo/](https://apis.io/providers/billgo/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [BillGO Exchange GraphQL API](https://apis.io/apis/billgo/billgo-exchange-graphql-api/) — The GraphQL API behind the BillGO Exchange biller portal. A live graphql-java server answers POST requests at https://exchange.billgo.com/graphql; schema…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Moved to /providers/billgo/](https://apis.io/servers/billgo/billgo/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Billgo Authentication](https://apis.io/security/billgo/billgo-authentication/)
+- [Billgo Domain Security](https://apis.io/security/billgo/billgo-domain-security/)
+- [Billgo Trust Center](https://apis.io/security/billgo/billgo-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Billgo Scopes](https://apis.io/scopes/billgo/billgo-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://billgo.com/)
+- [Sign up](https://start.billgo.com/)
+- [Support](https://billgo.com/contact)
+- [Blog](https://billgo.com/blog)
+- [Security](https://billgo.com/security)
+- [Compliance](https://billgo.com/security)
+- [Terms of service](https://billgo.com/terms-and-conditions)
+- [Privacy policy](https://billgo.com/privacy-policy)
+- [Status](https://billgo.statuspage.io/)
+
+## API Evangelist rating
+
+**Kin Score 27.3** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 43.4 |
+
+**Agent readiness 23.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 35.7** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/billgo/](https://apis.io/providers/billgo/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for BillGO: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/billgo/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
